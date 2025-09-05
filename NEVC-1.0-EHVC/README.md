@@ -39,17 +39,17 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. -->
 
 <div align="center">
 
-# **NEVC-1.0** (EHVC: Efficient Hierarchical Reference and Quality Structure for Neural Video Coding)
+# **NEVC-1.0** <br>(EHVC: Efficient Hierarchical Reference and Quality Structure for Neural Video Coding)
 
 
 <div align="center">
-<img src="./assets/performance.png" alt="alt text" width="80%" style="max-width: 100%;" height="auto">
+<img src="./assets/performance.png" alt="alt text" width="60%" style="max-width: 100%;" height="auto">
 <div>
 
 <div align="left">
 
-## Introduction
-Welcome to the official **NEVC-1.0** repository, this repository features the first release **NEVC-1.0**, which includes contribution from the **EHVC (Efficient Hierarchical Reference and Quality Structure for Neural Video Coding)**, one of the core components of the framework. **EHVC** introduces innovative hierarchical reference and quality structures that provide substantial improvements in both performance and compression efficiency.
+## :memo: Introduction
+Welcome to the official **NEVC-1.0** repository. This repository features the first release **NEVC-1.0**, which includes contribution from the **EHVC (Efficient Hierarchical Reference and Quality Structure for Neural Video Coding)**, one of the core components of the framework. **EHVC** introduces innovative hierarchical reference and quality structures that provide substantial improvements in both performance and compression efficiency.
 
 The key designs in **EHVC** include:
 - **Hierarchical multi-reference:** Efficiently addressing reference-quality mismatches through a hierarchical reference structure and a corresponding multi-reference scheme, optimized for low-delay configurations.
@@ -58,7 +58,7 @@ The key designs in **EHVC** include:
 
 ---
 
-## Prerequisites
+## :computer: Prerequisites
 - **Python 3.11** and **conda**
 - **CUDA** (if you wish to use GPU)
 
@@ -69,13 +69,16 @@ conda activate $YOUR_ENV_NAME
 
 conda install pytorch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1 pytorch-cuda=12.1 -c pytorch -c nvidia
 
+pip install -r requirements.txt
+```
 
-# Test dataset
-The dataset structure can be seen in dataset_config_example_rgb.json.
+## :file_folder: Test dataset
+The dataset structure can be seen in cfg/dataset_config_rgb_allF_IP-1.json.
 
 The folder structure of test dataset is like:
 
-test_datasets/
+```
+testset_root_path/
     ├── HEVC_B/
     │   ├── BQTerrace_1920x1080_60/
     │   │   ├── im00001.png
@@ -92,55 +95,62 @@ test_datasets/
     │   └── ...
     └── HEVC_D/
         └── ...
+```
 
+Replace `testset_root_path` in cfg/dataset_config_rgb_allF_IP-1.json and cfg/dataset_config_rgb_96F_IP32.json with the root path of your test dataset.
 
-# Build the project
+## :wrench: Build the project
+- Set the working directory to `NEVC-1.0-EHVC`.
+- Build the project by running:
 ```shell
 sh ./build_entropy.sh
 ```
 
-# Get the pretrained model
+## :floppy_disk: Get the pretrained model
 - EHVC uses the same **intra model** as DCVC-DC, which can be downloaded from [DCVC-DC](https://github.com/microsoft/DCVC/tree/main/DCVC-family/DCVC-DC).
+- Our **inter model** can be downloaded from [EHVC](https://huggingface.co/ByteDance/NEVC1.0). Our **intra model** is also available here.
 
-- Our **inter model** can be downloaded from [EHVC](ComingSoon). Our **intra model** is also available here.
+ ## :test_tube: Test the model
+ - Set the working directory to `NEVC-1.0-EHVC`.
+ - Specify the output json path in the test script (output_path).
+ - Specify the stream path in the test script (stream_path).
+ - For 96 frames with intra-period 32, run:
 
-# Test the model
 ```shell
-sh ./test.sh
+sh ./test_video_F96_G32.sh ./checkpoints/EHVC_intra_model.pth ./checkpoints/EHVC_inter_model.pth.tar
 ```
 
-# Experimental results
-## Objective comparison
+ - For all frames with intra-period -1, run:
+
+```shell
+sh ./test_video_Fall_G-1.sh ./checkpoints/EHVC_intra_model.pth ./checkpoints/EHVC_inter_model.pth.tar
+```
+
+
+## :bar_chart: Experimental results
+### Objective comparison
 <div align="center">
-BD-Rate (%) comparison for PSNR. The anchor is VTM-23.4 LDB. All codecs are under 96 frames with intra-period 32.
+BD-Rate (%) comparison for PSNR. The anchor is VTM-23.4 LDB. All codecs are under 96 frames with intra-period 32.<br>
 
-<img src="./assets/96F32G.png" alt="alt text" width="80%" style="max-width: 100%;" height="auto">
+<img src="./assets/96F32G.png" alt="alt text" width="50%" style="max-width: 100%;" height="auto">
 
-Rate-Distortion curves on HEVC B, HEVC C, UVG, and MCL-JCV dataset. The intra-period is 32 with 96 frames.
+Rate-Distortion curves on HEVC B, HEVC C, UVG, and MCL-JCV dataset. The intra-period is 32 with 96 frames.<br>
 
-<img src="./assets/96F32G_curve.png" alt="alt text" width="100%" style="max-width: 100%;" height="auto">
+<img src="./assets/96F32G_curve.png" alt="alt text" width="80%" style="max-width: 100%;" height="auto">
 
-BD-Rate (%) comparison for PSNR. The anchor is VTM-23.4 LDB. All codecs are under all frames with intra-period -1.
+BD-Rate (%) comparison for PSNR. The anchor is VTM-23.4 LDB. All codecs are under all frames with intra-period -1.<br>
 
-<img src="./assets/allF-1G.png" alt="alt text" width="80%" style="max-width: 100%;" height="auto">
+<img src="./assets/allF-1G.png" alt="alt text" width="50%" style="max-width: 100%;" height="auto">
 
-Rate-Distortion curves on HEVC B, HEVC C, UVG, and MCL-JCV dataset. The intra-period is -1 with all frames.
+Rate-Distortion curves on HEVC B, HEVC C, UVG, and MCL-JCV dataset. The intra-period is -1 with all frames.<br>
 
-<img src="./assets/allF-1G_curve.png" alt="alt text" width="100%" style="max-width: 100%;" height="auto">
+<img src="./assets/allF-1G_curve.png" alt="alt text" width="80%" style="max-width: 100%;" height="auto">
 
 </div>
 
-## Subjective comparison
-<div align="center">
-Subjective comparison between DCVC-FM and EHVC.
+## :scroll: Citation
 
-<img src="./assets/comp.png" alt="alt text" width="90%" style="max-width: 100%;" height="auto">
-
-</div>
-
-# Citation
-
-If you find **NEVC 1，0** helpful in your research or projects, we kindly ask you to consider citing the following paper:
+If you find **NEVC 1.0** helpful in your research or projects, we kindly ask you to consider citing the following paper:
 
 - **EHVC: Efficient Hierarchical Reference and Quality Structure for Neural Video Coding**  
   Junqi Liao, Yaojun Wu, Chaoyi Lin, Zhipin Deng, Li Li, Dong Liu, Xiaoyan Sun, ACM MM 2025.  
@@ -151,8 +161,5 @@ If you find **NEVC 1，0** helpful in your research or projects, we kindly ask y
     booktitle={Proceedings of the 33rd ACM International Conference on Multimedia},
     year={2025}
   }
-# Acknowledgement
+## :handshake: Acknowledgement
 Our work is implemented based on [CompressAI](https://github.com/InterDigitalInc/CompressAI) and [DCVC-DC](https://github.com/microsoft/DCVC/tree/main/DCVC-family/DCVC-DC).
-
-
-

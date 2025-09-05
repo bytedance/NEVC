@@ -48,16 +48,16 @@ This repository provides access to code, pretrained models, and research papers 
 
 ---
 
-### **Release Notes**
+### :newspaper: **Release Notes**
 
 #### **NEVC-1.0** - **First Release**
-- **Release Date**: *Coming soon*
+- **Release Date**: *Sep 5th, 2025*
 - **Key Features**:
   - This version implements the core concepts and methods from the paper **"EHVC: Efficient Hierarchical Reference and Quality Structure for Neural Video Coding"**, accepted at ACM MM 2025.
 
 ---
 
-### **Codec Versions Overview**
+### :memo: **Codec Versions Overview**
 
 The following table provides details on different versions of the NEVC codec, along with associated papers, code, and checkpoints.
 
@@ -65,17 +65,17 @@ The following table provides details on different versions of the NEVC codec, al
 
 | Codec | Paper | Code | Checkpoint | 
 | ----- | ----- | ---- | ---------- |
-| **NEVC-1.0 (EHVC)** | [EHVC paper](#) | [EHVC code](NEVC-1.0-EHVC) | [EHVC checkpoint](ComingSoon) |
+| **NEVC-1.0 (EHVC)** | [EHVC paper](http://arxiv.org/abs/2509.04118) | [EHVC code](NEVC-1.0-EHVC) | [EHVC checkpoint](https://huggingface.co/ByteDance/NEVC1.0) |
 
 </div>
 
 ---
 
-### Project Goals:
+### :dart: Project Goals
 - Develop a **neural-based video codec** that offers **efficient video compression**.
 - Achieve **major enhancements** in encoding performance and compression efficiency.
 
-### Citation
+### :book: Citation
 
 If you find **NEVC** or any part of this repository helpful in your research or projects, we kindly ask you to consider citing the following papers:
 
@@ -89,5 +89,5 @@ If you find **NEVC** or any part of this repository helpful in your research or 
     year={2025}
   }
 
-### License
+### :scroll: License
  NEVC is licensed under the BSD 3-Clause Clear License
